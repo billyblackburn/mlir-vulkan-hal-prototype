@@ -1,0 +1,26 @@
+#version 450
+#extension GL_EXT_buffer_reference : require
+#extension GL_EXT_scalar_block_layout : require
+
+layout(local_size_x = 256, local_size_y = 1, local_size_z = 1) in;
+
+layout(buffer_reference, scalar, buffer_reference_align = 4) buffer FloatPtr {
+    float data[];
+};
+
+// CUDA/HIP-style kernel arguments passed directly in a 32-byte push constant
+// block (zero descriptor sets!): 3x 64-bit GPU pointers + runtime alpha & N.
+layout(push_constant, scalar) uniform KernelArgs {
+    FloatPtr A;
+    FloatPtr B;
+    FloatPtr C;
+    float alpha;
+    uint N;
+} args;
+
+void main() {
+    uint idx = gl_GlobalInvocationID.x;
+    if (idx < args.N) {
+        args.C.data[idx] = args.alpha * args.A.data[idx] + args.B.data[idx];
+    }
+}

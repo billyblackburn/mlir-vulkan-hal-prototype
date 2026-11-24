@@ -1,0 +1,8 @@
+.pixi/
+pixi.lock
+*.spv
+*.so
+*_spirv.mlir
+*_spirv_only.mlir
+bench_vulkan
+bench_hal_c
