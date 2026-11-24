@@ -346,9 +346,8 @@ int main(void) {
 
   VkPhysicalDeviceProperties props;
   vkGetPhysicalDeviceProperties(phys, &props);
-  printf("[C Vulkan Bench] Device: %s | N = %u (%.1f MB/buf, 2-pass chained SAXPY = %.1f MB/iter)\n",
-         props.deviceName, N_ELEMS, (double)(N_ELEMS * 4) / (1024.0 * 1024.0),
-         (double)(N_ELEMS * 4 * 6) / (1024.0 * 1024.0));
+  printf("[C Vulkan Bench] Device: %s | N = %u (16.0 MiB/buf, 2-pass chained SAXPY = 96.0 MiB / %.2f MB/iter)\n",
+         props.deviceName, N_ELEMS, (double)(N_ELEMS * 4 * 6) / 1e6);
 
   uint32_t qfc = 0;
   vkGetPhysicalDeviceQueueFamilyProperties(phys, &qfc, NULL);

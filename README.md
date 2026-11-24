@@ -18,13 +18,13 @@ Reproducible prototype & benchmark exploring a Vulkan 1.3 compute backend aligne
 ## Local Quick Start (Any Linux Vulkan 1.2+ Machine)
 
 ```bash
-git clone <this-repo-url>
-cd mlir_vulkan_compute
+git clone https://github.com/billyblackburn/mlir-vulkan-hal-prototype.git
+cd mlir-vulkan-hal-prototype
 chmod +x run_all.sh
 ./run_all.sh
 ```
 
-`run_all.sh` automatically detects system tools (`mlir-opt`, `mlir-translate`, `gcc`/`clang`, `glslc`/`glslangValidator`, `spirv-val`) or falls back to [Pixi](https://pixi.sh) (`pixi.toml` installs `mlir`, `c-compiler`, and `vulkan-headers` locally without touching system packages).
+**Prerequisites**: A Vulkan 1.2+ driver, a GLSL compiler (`glslc` or `glslangValidator`), and either system `gcc`/`clang` + `libvulkan-dev` + `mlir-opt`/`mlir-translate`, or [Pixi](https://pixi.sh) (`pixi.toml` installs `mlir`, `c-compiler`, and `vulkan-headers` locally without touching system packages).
 
 - `./bench_hal_c` runs the full HAL suite (SAXPY, 512×512 Tiled MatMul, BDA + push constants, and cross-queue timeline semaphores) with zero Mojo version dependency.
 - `run_mojo.mojo`, `bench_mojo.mojo`, and `bench_bda_timeline.mojo` drive the exact same `libvk_hal.so` from Mojo via `sys.ffi.DLHandle`.
